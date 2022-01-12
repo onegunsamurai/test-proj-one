@@ -1,0 +1,31 @@
+version: 0.2
+env:
+  parameter-store:
+    TF_VERSION: /Codebuild/TF_VERSION
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email)
+      - COMMIT="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - TAG="paulo-${APP}-${COMMIT}"
+      - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+      - wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
+      - unzip terraform_${TF_VERSION}_linux_amd64.zip
+      - mv terraform /bin/
+      #Version hardcoded
+      - wget https://github.com/gruntwork-io/terragrunt/archive/refs/tags/v0.35.4.zip
+      - unzip v0.35.4.zip
+      - mv terragrunt-0.35.4/ terragrunt
+      - mv terragrunt /bin/
+  build:
+    commands:
+      # - |
+      #   echo "api_image_id = \"`cat versions/${ENVIRONMENT}/api`\"
+      #   admin_image_id = \"`cat versions/${ENVIRONMENT}/admin`\"
+      #   public_image_id = \"`cat versions/${ENVIRONMENT}/public`\" " 
+      #   > environments/${ENVIRONMENT}/terraform.tfvars
+      - cd environments/${ENVIRONMENT}
+      - terragrunt run-all init
+      - terraform run-all plan
+      - terragrunt run-all apply
