@@ -2,7 +2,7 @@ variable "name" {
   default = "infra"
 }
 variable "github_repo" {
-  default="https://github.com/onegunsamurai/test-proj-one"  # Replace with projects infra branch
+  default="test-proj-one"  # Replace with projects infra branch
 }
 
 variable "github_branch" {
