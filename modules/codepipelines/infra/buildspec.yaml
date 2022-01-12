@@ -17,6 +17,7 @@ phases:
       - wget https://github.com/gruntwork-io/terragrunt/archive/refs/tags/v0.35.4.zip
       - unzip v0.35.4.zip
       - mv terragrunt-0.35.4/ terragrunt
+      - chmod u+x terragrunt
       - mv terragrunt /bin/
   build:
     commands:
