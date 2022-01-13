@@ -14,10 +14,8 @@ phases:
       - unzip terraform_${TF_VERSION}_linux_amd64.zip
       - mv terraform /bin/
       #Version hardcoded
-      - wget https://github.com/gruntwork-io/terragrunt/archive/refs/tags/v0.35.4.zip
-      - unzip v0.35.4.zip
-      - mv terragrunt-0.35.4/ terragrunt
-      - chmod u+x terragrunt
+      - wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.4/terragrunt_linux_amd64
+      - mv terragrunt_linux_amd64 terragrunt
       - mv terragrunt /bin/
   build:
     commands:
