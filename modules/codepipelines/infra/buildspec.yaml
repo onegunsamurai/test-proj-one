@@ -27,5 +27,5 @@ phases:
       #   > environments/${ENVIRONMENT}/terraform.tfvars
       - cd environments/${ENVIRONMENT}
       - terragrunt run-all init
-      - terraform run-all plan
+      - terragrunt run-all plan
       - terragrunt run-all apply -auto-approve
